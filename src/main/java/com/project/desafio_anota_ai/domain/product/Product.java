@@ -1,6 +1,6 @@
 package com.project.desafio_anota_ai.domain.product;
 
-import com.project.desafio_anota_ai.domain.category.Category;
+import org.json.JSONObject;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,16 +13,31 @@ public class Product {
     private String description;
     private String ownerId;
     private Integer price;
-    private Category category;
+    private String category;
 
     public Product(ProductRequestDTO productDTO) {
         this.title = productDTO.title();
         this.description = productDTO.description();
         this.ownerId = productDTO.ownerId();
         this.price = productDTO.price();
+        this.category = productDTO.categoryId();
     }
 
     public Product() {}
+
+    @Override
+    public String toString() {
+        JSONObject json = new JSONObject();
+        json.put("id",this.id);
+        json.put("title", this.title);
+        json.put("description",this.description);
+        json.put("ownerId",this.ownerId);
+        json.put("price", this.price);
+        json.put("category", this.category);
+        json.put("type", "product");
+
+        return json.toString();
+    }
 
     public String getId() {
         return id;
@@ -64,11 +79,12 @@ public class Product {
         this.price = price;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(String category) {
         this.category = category;
     }
+
 }

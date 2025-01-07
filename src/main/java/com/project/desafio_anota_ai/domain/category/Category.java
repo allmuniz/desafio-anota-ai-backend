@@ -1,5 +1,6 @@
 package com.project.desafio_anota_ai.domain.category;
 
+import org.json.JSONObject;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -19,6 +20,17 @@ public class Category {
     }
 
     public Category() {}
+
+    @Override
+    public String toString() {
+        JSONObject json = new JSONObject();
+        json.put("id",this.id);
+        json.put("title", this.title);
+        json.put("description",this.description);
+        json.put("ownerId",this.ownerId);
+        json.put("type", "category");
+        return json.toString();
+    }
 
     public String getTitle() {
         return title;
